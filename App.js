@@ -1,18 +1,17 @@
 import * as React from "react";
-import { Platform, PermissionsAndroid } from "react-native"
+import { Platform, PermissionsAndroid, LogBox } from "react-native"
 import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider } from "native-base";
 import "react-native-gesture-handler";
 import useFonts from "./hooks/useFonts";
 import AppLoading from "expo-app-loading";
-import StackNavigator from "./StackNavigator";
+import Navigator from "./Navigator"
 import { AuthProvider } from "./hooks/useAuth";
-import { CometChat } from "@cometchat-pro/react-native-chat";
-import { useState, useEffect } from "react";
+LogBox.ignoreAllLogs()
+
 
 const App = () => {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {}, []);
+    const [loaded, setLoaded] = React.useState(false);
 
     const loadFonts = async () => {
         await useFonts();
@@ -51,25 +50,17 @@ const App = () => {
         );
     }
 
-  if (!loaded) {
     return (
-      <AppLoading
-        startAsync={loadFonts}
-        onFinish={() => setLoaded(true)}
-        onError={() => {}}
-      />
+        <NativeBaseProvider>
+            <AuthProvider>
+                <NavigationContainer>
+                    <Navigator />
+                </NavigationContainer>
+            </AuthProvider>
+        </NativeBaseProvider>
     );
-  }
+}
 
-  return (
-    <NativeBaseProvider>
-      <AuthProvider>
-        <NavigationContainer>
-          <StackNavigator />
-        </NavigationContainer>
-      </AuthProvider>
-    </NativeBaseProvider>
-  );
-};
+
 
 export default App;

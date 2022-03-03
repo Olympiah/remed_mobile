@@ -1,33 +1,32 @@
 {
-    "expo": {
-        "name": "remed_mobile",
-        "slug": "remed_mobile",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./assets/icon.png",
-        "splash": {
-        "image": "./assets/splash.png",
-        "resizeMode": "contain",
-        "backgroundColor": "#ffffff"
+  "expo": {
+    "name": "stream_t2",
+    "slug": "stream_t2",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
     "updates": {
-        "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
-        "**/*"
+      "**/*"
     ],
     "ios": {
-        "supportsTablet": true
+      "supportsTablet": true
     },
     "android": {
-        "package": "host.exp.exponent",
-        "adaptiveIcon": {
-            "foregroundImage": "./assets/adaptive-icon.png",
-            "backgroundColor": "#FFFFFF"
-        }
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
     },
     "web": {
-        "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png"
     }
-}
+  }
 }

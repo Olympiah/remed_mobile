@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Ensures optimal rendering on mobile devices -->
+    
+
+    <style>
+        body,
+        html{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(180deg, #023e8a 0, #0096c7 100%)
+        }
+        .container {
+            height: 100%;
+            display: flex;
+            margin-left: 20px;
+            margin-right: 20px;
+            overflow-y: scroll;
+            justify-content: center;
+            align-items: center
+        }
+        p{
+            color: #fff;
+            font-size: 16px;
+            text-align: justify;
+            margin-bottom: 50px
+        }
+        #preloaderSpinner {
+            display: none
+        }
+    </style>
+  </head>
+
+
+  <body>
+     <!-- Include the PayPal JavaScript SDK; replace "test" with your own sandbox Business account app client ID -->  
+    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+
+    <div class="container">   
+
+    <!-- Set up a container element for the button -->
+    <div style="justify-content: center; text-align: center">
+        <p>MAKE YOUR PAYMENT</p>
+      <div id="paypal-button-container"></div>
+    </div>
+
+    <script>
+       
+
+       paypal.Buttons({
+
+
+           // Sets up the transaction when a payment button is clicked
+
+           createOrder: function (data, actions) {
+
+               return actions.order.create({
+
+                   purchase_units: [{
+
+                       amount: {
+                        //   "currency_code": "USD",
+                           'value': '700.00' // Can reference variables or functions. Example: `value: document.getElementById('...').value`
+                  
+                       }
+
+                   }]
+
+               });
+
+           },
+
+
+           // Finalize the transaction after payer approval
+
+           onApprove: function (data, actions) {
+
+               return actions.order.capture().then(function (orderData) {
+
+                   // Successful capture! For dev/demo purposes:
+
+                   console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+                   var transaction = orderData.purchase_units[0].payments.captures[0];
+
+                   alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+
+                   // When ready to go live, remove the alert and show a success message within this page. For example:
+
+                   // var element = document.getElementById('paypal-button-container');
+
+                   // element.innerHTML = '';
+
+                   // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+
+                   // Or go to another URL:  actions.redirect('thank_you.html');
+
+               });
+
+           }
+
+       }).render('#paypal-button-container');
+
+
+      
+    </script>
+
+  </body>
+
+</html>   
